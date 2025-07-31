@@ -1,0 +1,5 @@
+export enum Views {
+  REDUCCION_RIESGO = 'REDUCCION_RIESGO',
+  PROCESS = 'PROCESS',
+  DASHBOARD = 'DASHBOARD',
+}
