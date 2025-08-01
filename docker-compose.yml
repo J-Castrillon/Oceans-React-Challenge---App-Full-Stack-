@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: oceans-postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: admins
+      POSTGRES_PASSWORD: admins
+      POSTGRES_DB: oceans-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - oceans-network
+
+volumes:
+  postgres_data:
+
+networks:
+  oceans-network:
+    driver: bridge
