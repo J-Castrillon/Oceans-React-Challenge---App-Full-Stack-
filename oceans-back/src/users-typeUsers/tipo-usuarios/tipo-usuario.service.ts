@@ -21,8 +21,7 @@ export class TipoUsuariosService {
     try {
       const newType = await this.typeUserRepository.save(createTypeUserDto);
 
-      if (!newType)
-        throw new BadRequestException('Error creating user type');
+      if (!newType) throw new BadRequestException('Error creating user type');
 
       return {
         statusCode: HttpStatus.CREATED,
@@ -106,7 +105,7 @@ export class TipoUsuariosService {
   async remove(roleId: string) {
     try {
       const role = await this.typeUserRepository.findOne({
-        where: { roleId: +roleId},
+        where: { roleId: +roleId },
       });
 
       if (!role)
@@ -120,9 +119,7 @@ export class TipoUsuariosService {
       return {
         statusCode: HttpStatus.OK,
         message: 'User type deleted successfully',
-        'User type deleted': {
-          'User type name': role.roleName,
-        },
+        'User type deleted': role.roleName,
       };
     } catch (error) {
       if (error instanceof Error) throw error;

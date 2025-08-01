@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { Menu } from 'src/menu/entities/menu.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Timestamp,
+} from 'typeorm';
 
 @Entity('resources_manage')
 export class ResourcesManage {
@@ -36,4 +43,9 @@ export class ResourcesManage {
     nullable: false,
   })
   created_at: string;
+
+  @OneToMany(() => Menu, (menu) => menu.image, {
+    cascade: true,
+  })
+  menu: Menu[];
 }

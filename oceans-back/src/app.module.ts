@@ -7,6 +7,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersManageModule } from './users-typeUsers/users-manage/users-manage.module';
 import { TipoUsuariosModule } from './users-typeUsers/tipo-usuarios/tipo-usuario.module';
+import { OrdersModule } from './orders/orders.module';
+import { MenuModule } from './menu/menu.module';
+import { ConfigsSiteModule } from './configs-site/configs-site.module';
 
 @Module({
   imports: [
@@ -34,6 +37,9 @@ import { TipoUsuariosModule } from './users-typeUsers/tipo-usuarios/tipo-usuario
     AuthModule,
     UsersManageModule,
     TipoUsuariosModule,
+    OrdersModule,
+    MenuModule,
+    ConfigsSiteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

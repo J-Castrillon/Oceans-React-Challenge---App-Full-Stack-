@@ -14,6 +14,20 @@ import { UpdateUsersManageDto } from './dto/update-users-manage.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Views } from 'src/auth/enums/views.enum';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger';
+import {
+  ResponseAllUsersDto,
+  ResponseDeleteUserDto,
+  ResponseOneUserDto,
+  ResponseUpdateUserDto,
+  ResponseUserDto,
+} from './dto/responses-users.dto';
 
 @Controller('users-manage')
 @Auth(Views.DASHBOARD)
@@ -21,6 +35,13 @@ export class UsersManageController {
   constructor(private readonly usersManageService: UsersManageService) {}
 
   @Post()
+  @ApiOperation({
+    summary: 'Crear nuevo usuario',
+  })
+  @ApiCreatedResponse({
+    description: 'Usuario creado exitosamente',
+    type: ResponseUserDto,
+  })
   async create(@Body() createUsersManageDto: CreateUsersManageDto) {
     try {
       return await this.usersManageService.create(createUsersManageDto);
@@ -34,7 +55,13 @@ export class UsersManageController {
   }
 
   @Get()
-  @Public()
+  @ApiOperation({
+    summary: 'Obtener todos los usuarios',
+  })
+  @ApiOkResponse({
+    description: 'Usuarios obtenidos exitosamente',
+    type: ResponseAllUsersDto,
+  })
   async findAll() {
     try {
       return await this.usersManageService.findAll();
@@ -48,7 +75,19 @@ export class UsersManageController {
   }
 
   @Get(':id')
-  @Public()
+  @ApiOperation({
+    summary: 'Obtener usuario por ID',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID del usuario a obtener',
+    example: 1,
+    required: true,
+  })
+  @ApiOkResponse({
+    description: 'Usuario obtenido exitosamente',
+    type: ResponseOneUserDto,
+  })
   async findOne(@Param('id') id: string) {
     try {
       return await this.usersManageService.findOne(+id);
@@ -62,6 +101,22 @@ export class UsersManageController {
   }
 
   @Patch(':id')
+  @ApiOperation({
+    summary: 'Editar usuario',
+  })
+  @ApiCreatedResponse({
+    description: 'Usuario editado exitosamente',
+    type: ResponseUpdateUserDto,
+  })
+  @ApiBody({
+    type: CreateUsersManageDto,
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID del usuario a editar',
+    example: 1,
+    required: true,
+  })
   async update(
     @Param('id') id: string,
     @Body() updateUsersManageDto: UpdateUsersManageDto,
@@ -78,6 +133,19 @@ export class UsersManageController {
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Eliminar usuario por ID',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID del usuario a eliminar',
+    example: 1,
+    required: true,
+  })
+  @ApiOkResponse({
+    description: 'Usuario eliminado exitosamente',
+    type: ResponseDeleteUserDto,
+  })
   async remove(@Param('id') id: string) {
     try {
       return await this.usersManageService.remove(+id);

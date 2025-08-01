@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ResourcesManage } from './entities/resources-manage.entity';
+import { AuthModule } from 'src/auth/auth.module';
+import { TipoUsuariosModule } from 'src/users-typeUsers/tipo-usuarios/tipo-usuario.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { ResourcesManage } from './entities/resources-manage.entity';
         ];
       },
     }),
+    AuthModule,
+    TipoUsuariosModule,
   ],
   controllers: [ResourcesManageController],
   providers: [ResourcesManageService],

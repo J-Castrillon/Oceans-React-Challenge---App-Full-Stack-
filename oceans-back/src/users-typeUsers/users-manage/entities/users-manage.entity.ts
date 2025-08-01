@@ -1,5 +1,6 @@
+import { Order } from 'src/orders/entities/order.entity';
 import { TipoUsuario } from 'src/users-typeUsers/tipo-usuarios/entities/tipo-usuario.entity';
-import { Column, Entity, ManyToOne, PrimaryColumn, Timestamp } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, Timestamp } from 'typeorm';
 
 @Entity('users_manage')
 export class UsersManage {
@@ -42,4 +43,9 @@ export class UsersManage {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Timestamp;
+
+  @OneToMany(() => Order, order => order.user, {
+    cascade: true,
+  })
+  orders: Order[];
 }

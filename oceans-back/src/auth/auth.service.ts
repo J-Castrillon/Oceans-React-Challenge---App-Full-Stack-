@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { UsersManageService } from 'src/users-typeUsers/users-manage/users-manage.service';
 import { JwtService } from '@nestjs/jwt';
@@ -14,10 +18,7 @@ export class AuthService {
     const { user } = await this.userService.findOne(+loginDto.document);
 
     if (!user) {
-      return {
-        statusCode: 404,
-        message: 'User not found',
-      };
+      throw new NotFoundException('User not found');
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -26,10 +27,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      return {
-        statusCode: 401,
-        message: 'Invalid credentials',
-      };
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const payload = {

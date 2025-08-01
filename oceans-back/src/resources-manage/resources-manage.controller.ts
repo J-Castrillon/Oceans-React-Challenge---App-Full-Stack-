@@ -34,8 +34,11 @@ import {
   ResponseOneResourceDto,
 } from './dto/response-resources.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Views } from 'src/auth/enums/views.enum';
 
 @Controller('resources-manage')
+@Auth(Views.DASHBOARD)
 export class ResourcesManageController {
   constructor(
     private readonly resourcesManageService: ResourcesManageService,
@@ -190,6 +193,7 @@ export class ResourcesManageController {
     description: 'Resource found successfully',
     type: ResponseOneResourceDto,
   })
+  @Public()
   async viewOne(@Param('id') id: string) {
     try {
       const response = await this.resourcesManageService.viewOne(+id);
