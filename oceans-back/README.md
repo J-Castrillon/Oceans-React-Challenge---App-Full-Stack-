@@ -100,6 +100,8 @@ ocean-backend/
 - Requiere tener **PostgreSQL** instalado y configurado.
 - Se recomienda usar **Node.js ≥ 18**.
 - Usa herramientas como Postman o Insomnia para probar los endpoints.
+- Puedes ver la documentación de la API en /api/docs.
+
 
 ---
 
